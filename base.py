@@ -35,7 +35,7 @@ def setup_local_assistant():
     return generator
 
 
-def get_assistant_response(generator, prompt, max_length=600):
+def get_assistant_response(generator, prompt, max_length=10000):
     """
     Генерирует ответ на основе входного промпта
     """
@@ -47,6 +47,7 @@ def get_assistant_response(generator, prompt, max_length=600):
     response = generator(
         formatted_prompt,
         max_length=max_length,
+        min_length=1000,
         num_return_sequences=1,
         temperature=0.7,
         top_p=0.9,
@@ -69,9 +70,10 @@ if __name__ == "__main__":
 
     # Пример работы с документами
     test_prompt = """
-show me how can i implement "builder" programming pattern in Python?
-
+what is SOLID principles of programming?
     """
+
+    print(f"Запрос: {test_prompt}")
 
     print("\nГенерация ответа...")
     response = get_assistant_response(generator, test_prompt)
